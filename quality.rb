@@ -11,11 +11,11 @@ end
 
 uri = URI.parse("https://cocoadocs-api-cocoapods-org.herokuapp.com/pods/#{ARGV[0]}/stats")
 quality = Net::HTTP.get_response(uri).body
-if quality[0] != '['
+if quality[0] != '{'
 	puts quality
 	exit 1
 end
-quality = JSON.parse(quality)
+quality = JSON.parse(quality)['metrics']
 
 uri = URI.parse("http://metrics.cocoapods.org/api/v1/pods/#{ARGV[0]}.json")
 metrics = JSON.parse(Net::HTTP.get_response(uri).body)
